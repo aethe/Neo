@@ -73,14 +73,14 @@ inline mat4 mat4::rotation_z(const angle& alpha) {
 
 inline mat4 mat4::look_at(const vec3& origin, const vec3& target, const vec3& up) {
     vec3 z_axis = (origin - target).normalize();
-    vec3 x_axis = up.cross(z_axis).normalize();
-    vec3 y_axis = z_axis.cross(x_axis);
+    vec3 x_axis = cross(up, z_axis).normalize();
+    vec3 y_axis = cross(z_axis, x_axis);
 
     return mat4(
         vec4(x_axis.x, y_axis.x, z_axis.x, 0.0f),
         vec4(x_axis.y, y_axis.y, z_axis.y, 0.0f),
         vec4(x_axis.z, y_axis.z, z_axis.z, 0.0f),
-        vec4(-x_axis.dot(origin), -y_axis.dot(origin), -z_axis.dot(origin), 1.0f)
+        vec4(dot(-x_axis, origin), dot(-y_axis, origin), dot(-z_axis, origin), 1.0f)
     );
 }
 
@@ -91,10 +91,6 @@ inline mat2 mat4::as_mat2() const {
 inline mat3 mat4::as_mat3() const {
     return mat3(v1.as_vec3(), v2.as_vec3(), v3.as_vec3());
 }
-
-// inline std::string mat4::as_string() const {
-//     return "[" + v1.as_string() + ", " + v2.as_string() + ", " + v3.as_string() + ", " + v4.as_string() + "]";
-// }
 
 inline mat4 mat4::transpose() const {
     return mat4(
@@ -138,10 +134,6 @@ inline float mat4::det() const {
         - v1.y * (v2.x * (v3.z * v4.w - v3.w * v4.z) - v2.z * (v3.x * v4.w - v3.w * v4.x) + v2.w * (v3.x * v4.z - v3.z * v4.x))
         + v1.z * (v2.x * (v3.y * v4.w - v3.w * v4.y) - v2.y * (v3.x * v4.w - v3.w * v4.x) + v2.w * (v3.x * v4.y - v3.y * v4.x))
         - v1.w * (v2.x * (v3.y * v4.z - v3.z * v4.y) - v2.y * (v3.x * v4.z - v3.z * v4.x) + v2.z * (v3.x * v4.y - v3.y * v4.x));
-}
-
-inline mat4 mat4::lerp(const mat4& other, float t) const {
-    return mat4(v1.lerp(other.v1, t), v2.lerp(other.v2, t), v3.lerp(other.v3, t), v4.lerp(other.v4, t));
 }
 
 inline mat4 mat4::operator-() const {

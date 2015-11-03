@@ -26,16 +26,13 @@ struct vec2 {
 
     vec3 as_vec3(float z = 0.0f) const;
     vec4 as_vec4(float z = 0.0f, float w = 0.0f) const;
-    //std::string as_string() const;
 
     float length() const;
     vec2 normalize() const;
-    float dot(const vec2& other) const;
     vec2 proj(const vec2& other) const;
     vec2 perp(const vec2& other) const;
     vec2 reflect(const vec2& normal) const;
     vec2 refract(const vec2& normal, float eta) const;
-    vec2 lerp(const vec2& other, float t) const;
 
     vec2 operator-() const;
 
@@ -70,17 +67,13 @@ struct vec3 {
 
     vec2 as_vec2() const;
     vec4 as_vec4(float w = 0.0f) const;
-    //std::string as_string() const;
 
     float length() const;
     vec3 normalize() const;
-    float dot(const vec3& other) const;
     vec3 proj(const vec3& other) const;
     vec3 perp(const vec3& other) const;
     vec3 reflect(const vec3& normal) const;
     vec3 refract(const vec3& normal, float eta) const;
-    vec3 lerp(const vec3& other, float t) const;
-    vec3 cross(const vec3& other) const;
 
     vec3 operator-() const;
 
@@ -115,16 +108,13 @@ struct vec4 {
 
     vec2 as_vec2() const;
     vec3 as_vec3() const;
-    //std::string as_string() const;
 
     float length() const;
     vec4 normalize() const;
-    float dot(const vec4& other) const;
     vec4 proj(const vec4& other) const;
     vec4 perp(const vec4& other) const;
     vec4 reflect(const vec4& normal) const;
     vec4 refract(const vec4& normal, float eta) const;
-    vec4 lerp(const vec4& other, float t) const;
 
     vec4 operator-() const;
 
@@ -161,12 +151,10 @@ struct mat2 {
 
     mat3 as_mat3() const;
     mat4 as_mat4() const;
-    //std::string as_string() const;
 
     mat2 transpose() const;
     mat2 inverse() const;
     float det() const;
-    mat2 lerp(const mat2& other, float t) const;
 
     mat2 operator-() const;
 
@@ -203,12 +191,10 @@ struct mat3 {
 
     mat2 as_mat2() const;
     mat4 as_mat4() const;
-    //std::string as_string() const;
 
     mat3 transpose() const;
     mat3 inverse() const;
     float det() const;
-    mat3 lerp(const mat3& other, float t) const;
 
     mat3 operator-() const;
 
@@ -253,12 +239,10 @@ struct mat4 {
 
     mat2 as_mat2() const;
     mat3 as_mat3() const;
-    //std::string as_string() const;
 
     mat4 transpose() const;
     mat4 inverse() const;
     float det() const;
-    mat4 lerp(const mat4& other, float t) const;
 
     mat4 operator-() const;
 
@@ -303,6 +287,19 @@ private:
 
 };
 
+float dot(const vec2& lhs, const vec2& rhs);
+float dot(const vec3& lhs, const vec3& rhs);
+float dot(const vec4& lhs, const vec4& rhs);
+
+vec3 cross(const vec3& lhs, const vec3& rhs);
+
+vec2 lerp(const vec2& lhs, const vec2& rhs, float t);
+vec3 lerp(const vec3& lhs, const vec3& rhs, float t);
+vec4 lerp(const vec4& lhs, const vec4& rhs, float t);
+mat2 lerp(const mat2& lhs, const mat2& rhs, float t);
+mat3 lerp(const mat3& lhs, const mat3& rhs, float t);
+mat4 lerp(const mat4& lhs, const mat4& rhs, float t);
+
 }
 
 #endif
@@ -314,3 +311,4 @@ private:
 #include "mat3.hpp"
 #include "mat4.hpp"
 #include "angle.hpp"
+#include "functions.hpp"

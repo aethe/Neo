@@ -13,10 +13,6 @@ inline mat4 mat2::as_mat4() const {
     return mat4(v1.as_vec4(), v2.as_vec4(), vec4(0.0f, 0.0f, 1.0f, 0.0f), vec4(0.0f, 0.0f, 0.0f, 1.0f));
 }
 
-// inline std::string mat2::as_string() const {
-//     return "[" + v1.as_string() + ", " + v2.as_string() + "]";
-// }
-
 inline mat2 mat2::transpose() const {
     return mat2(
         vec2(v1.x, v2.x),
@@ -39,10 +35,6 @@ inline mat2 mat2::inverse() const {
 
 inline float mat2::det() const {
     return v1.x * v2.y - v1.y * v2.x;
-}
-
-inline mat2 mat2::lerp(const mat2& other, float t) const {
-    return mat2(v1.lerp(other.v1, t), v2.lerp(other.v2, t));
 }
 
 inline mat2 mat2::operator-() const {
