@@ -113,6 +113,14 @@ inline float2x2& float2x2::operator*=(const float2x2& other) {
     return *this = *this * other;
 }
 
+inline float2& float2x2::operator[](int index) {
+    return columns[index];
+}
+
+inline const float2& float2x2::operator[](int index) const {
+    return columns[index];
+}
+
 }
 
 #endif

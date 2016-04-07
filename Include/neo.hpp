@@ -19,7 +19,7 @@ struct angle;
 
 struct float2 {
 
-    float x, y;
+    union { struct { float x, y; }; float scalars[2]; };
 
     float2(): x(0.0f), y(0.0f) { }
     float2(float x, float y): x(x), y(y) { }
@@ -56,11 +56,14 @@ struct float2 {
     float2& operator*=(const float2& other);
     float2& operator/=(const float2& other);
 
+    float& operator[](int index);
+    float operator[](int index) const;
+
 };
 
 struct float3 {
 
-    float x, y, z;
+    union { struct { float x, y, z; }; float scalars[3]; };
 
     float3(): x(0.0f), y(0.0f), z(0.0f) { }
     float3(float x, float y, float z): x(x), y(y), z(z) { }
@@ -97,11 +100,14 @@ struct float3 {
     float3& operator*=(const float3& other);
     float3& operator/=(const float3& other);
 
+    float& operator[](int index);
+    float operator[](int index) const;
+
 };
 
 struct float4 {
 
-    float x, y, z, w;
+    union { struct { float x, y, z, w; }; float scalars[4]; };
 
     float4(): x(0.0f), y(0.0f), z(0.0f), w(0.0f) { }
     float4(float x, float y, float z, float w): x(x), y(y), z(z), w(w) { }
@@ -138,11 +144,14 @@ struct float4 {
     float4& operator*=(const float4& other);
     float4& operator/=(const float4& other);
 
+    float& operator[](int index);
+    float operator[](int index) const;
+
 };
 
 struct float2x2 {
 
-    float2 c0, c1;
+    union { struct { float2 c0, c1; }; float2 columns[2]; };
 
     float2x2(): c0(1.0f, 0.0f), c1(0.0f, 1.0f) { }
     float2x2(const float2& c0, const float2& c1): c0(c0), c1(c1) { }
@@ -178,11 +187,14 @@ struct float2x2 {
     float2x2& operator-=(const float2x2& other);
     float2x2& operator*=(const float2x2& other);
 
+    float2& operator[](int index);
+    const float2& operator[](int index) const;
+
 };
 
 struct float3x3 {
 
-    float3 c0, c1, c2;
+    union { struct { float3 c0, c1, c2; }; float3 columns[3]; };
 
     float3x3(): c0(1.0f, 0.0f, 0.0f), c1(0.0f, 1.0f, 0.0f), c2(0.0f, 0.0f, 1.0f) { }
     float3x3(const float3& c0, const float3& c1, const float3& c2): c0(c0), c1(c1), c2(c2) { }
@@ -218,11 +230,14 @@ struct float3x3 {
     float3x3& operator-=(const float3x3& other);
     float3x3& operator*=(const float3x3& other);
 
+    float3& operator[](int index);
+    const float3& operator[](int index) const;
+
 };
 
 struct float4x4 {
 
-    float4 c0, c1, c2, c3;
+    union { struct { float4 c0, c1, c2, c3; }; float4 columns[4]; };
 
     float4x4(): c0(1.0f, 0.0f, 0.0f, 0.0f), c1(0.0f, 1.0f, 0.0f, 0.0f), c2(0.0f, 0.0f, 1.0f, 0.0f), c3(0.0f, 0.0f, 0.0f, 1.0f) { }
     float4x4(const float4& c0, const float4& c1, const float4& c2, const float4& c3): c0(c0), c1(c1), c2(c2), c3(c3) { }
@@ -265,6 +280,9 @@ struct float4x4 {
     float4x4& operator+=(const float4x4& other);
     float4x4& operator-=(const float4x4& other);
     float4x4& operator*=(const float4x4& other);
+
+    float4& operator[](int index);
+    const float4& operator[](int index) const;
 
 };
 
