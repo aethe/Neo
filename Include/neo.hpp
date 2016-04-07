@@ -142,12 +142,12 @@ struct float4 {
 
 struct float2x2 {
 
-    float2 v1, v2;
+    float2 c0, c1;
 
-    float2x2(): v1(1.0f, 0.0f), v2(0.0f, 1.0f) { }
-    float2x2(const float2& v1, const float2& v2): v1(v1), v2(v2) { }
-    float2x2(float v1x, float v1y, float v2x, float v2y):
-        v1(v1x, v1y), v2(v2x, v2y) { }
+    float2x2(): c0(1.0f, 0.0f), c1(0.0f, 1.0f) { }
+    float2x2(const float2& c0, const float2& c1): c0(c0), c1(c1) { }
+    float2x2(float c0x, float c0y, float c1x, float c1y):
+        c0(c0x, c0y), c1(c1x, c1y) { }
 
     float3x3 as_float3x3() const;
     float4x4 as_float4x4() const;
@@ -182,12 +182,12 @@ struct float2x2 {
 
 struct float3x3 {
 
-    float3 v1, v2, v3;
+    float3 c0, c1, c2;
 
-    float3x3(): v1(1.0f, 0.0f, 0.0f), v2(0.0f, 1.0f, 0.0f), v3(0.0f, 0.0f, 1.0f) { }
-    float3x3(const float3& v1, const float3& v2, const float3& v3): v1(v1), v2(v2), v3(v3) { }
-    float3x3(float v1x, float v1y, float v1z, float v2x, float v2y, float v2z, float v3x, float v3y, float v3z):
-        v1(v1x, v1y, v1z), v2(v2x, v2y, v2z), v3(v3x, v3y, v3z) { }
+    float3x3(): c0(1.0f, 0.0f, 0.0f), c1(0.0f, 1.0f, 0.0f), c2(0.0f, 0.0f, 1.0f) { }
+    float3x3(const float3& c0, const float3& c1, const float3& c2): c0(c0), c1(c1), c2(c2) { }
+    float3x3(float c0x, float c0y, float c0z, float c1x, float c1y, float c1z, float c2x, float c2y, float c2z):
+        c0(c0x, c0y, c0z), c1(c1x, c1y, c1z), c2(c2x, c2y, c2z) { }
 
     float2x2 as_float2x2() const;
     float4x4 as_float4x4() const;
@@ -222,12 +222,12 @@ struct float3x3 {
 
 struct float4x4 {
 
-    float4 v1, v2, v3, v4;
+    float4 c0, c1, c2, c3;
 
-    float4x4(): v1(1.0f, 0.0f, 0.0f, 0.0f), v2(0.0f, 1.0f, 0.0f, 0.0f), v3(0.0f, 0.0f, 1.0f, 0.0f), v4(0.0f, 0.0f, 0.0f, 1.0f) { }
-    float4x4(const float4& v1, const float4& v2, const float4& v3, const float4& v4): v1(v1), v2(v2), v3(v3), v4(v4) { }
-    float4x4(float v1x, float v1y, float v1z, float v1w, float v2x, float v2y, float v2z, float v2w, float v3x, float v3y, float v3z, float v3w, float v4x, float v4y, float v4z, float v4w):
-        v1(v1x, v1y, v1z, v1w), v2(v2x, v2y, v2z, v2w), v3(v3x, v3y, v3z, v3w), v4(v4x, v4y, v4z, v4w) { }
+    float4x4(): c0(1.0f, 0.0f, 0.0f, 0.0f), c1(0.0f, 1.0f, 0.0f, 0.0f), c2(0.0f, 0.0f, 1.0f, 0.0f), c3(0.0f, 0.0f, 0.0f, 1.0f) { }
+    float4x4(const float4& c0, const float4& c1, const float4& c2, const float4& c3): c0(c0), c1(c1), c2(c2), c3(c3) { }
+    float4x4(float c0x, float c0y, float c0z, float c0w, float c1x, float c1y, float c1z, float c1w, float c2x, float c2y, float c2z, float c2w, float c3x, float c3y, float c3z, float c3w):
+        c0(c0x, c0y, c0z, c0w), c1(c1x, c1y, c1z, c1w), c2(c2x, c2y, c2z, c2w), c3(c3x, c3y, c3z, c3w) { }
 
     static float4x4 scale(const float3& vector);
     static float4x4 translation(const float3& vector);
