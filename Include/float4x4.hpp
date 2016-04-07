@@ -85,71 +85,71 @@ inline float4x4 float4x4::look_at(const float3& origin, const float3& target, co
 }
 
 inline float2x2 float4x4::as_float2x2() const {
-    return float2x2(v1.as_float2(), v2.as_float2());
+    return float2x2(c0.as_float2(), c1.as_float2());
 }
 
 inline float3x3 float4x4::as_float3x3() const {
-    return float3x3(v1.as_float3(), v2.as_float3(), v3.as_float3());
+    return float3x3(c0.as_float3(), c1.as_float3(), c2.as_float3());
 }
 
 inline float4x4 float4x4::transpose() const {
     return float4x4(
-        float4(v1.x, v2.x, v3.x, v4.x),
-        float4(v1.y, v2.y, v3.y, v4.y),
-        float4(v1.z, v2.z, v3.z, v4.z),
-        float4(v1.w, v2.w, v3.w, v4.w)
+        float4(c0.x, c1.x, c2.x, c3.x),
+        float4(c0.y, c1.y, c2.y, c3.y),
+        float4(c0.z, c1.z, c2.z, c3.z),
+        float4(c0.w, c1.w, c2.w, c3.w)
     );
 }
 
 inline float4x4 float4x4::inverse() const {
     float4x4 inv;
 
-    inv.v1.x = v2.y * (v3.z * v4.w - v3.w * v4.z) + v2.z * (v3.w * v4.y - v3.y * v4.w) + v2.w * (v3.y * v4.z - v3.z * v4.y);
-    inv.v1.y = v1.y * (v3.w * v4.z - v3.z * v4.w) + v1.z * (v3.y * v4.w - v3.w * v4.y) + v1.w * (v3.z * v4.y - v3.y * v4.z);
-    inv.v1.z = v1.y * (v2.z * v4.w - v2.w * v4.z) + v1.z * (v2.w * v4.y - v2.y * v4.w) + v1.w * (v2.y * v4.z - v2.z * v4.y);
-    inv.v1.w = v1.y * (v2.w * v3.z - v2.z * v3.w) + v1.z * (v2.y * v3.w - v2.w * v3.y) + v1.w * (v2.z * v3.y - v2.y * v3.z);
+    inv.c0.x = c1.y * (c2.z * c3.w - c2.w * c3.z) + c1.z * (c2.w * c3.y - c2.y * c3.w) + c1.w * (c2.y * c3.z - c2.z * c3.y);
+    inv.c0.y = c0.y * (c2.w * c3.z - c2.z * c3.w) + c0.z * (c2.y * c3.w - c2.w * c3.y) + c0.w * (c2.z * c3.y - c2.y * c3.z);
+    inv.c0.z = c0.y * (c1.z * c3.w - c1.w * c3.z) + c0.z * (c1.w * c3.y - c1.y * c3.w) + c0.w * (c1.y * c3.z - c1.z * c3.y);
+    inv.c0.w = c0.y * (c1.w * c2.z - c1.z * c2.w) + c0.z * (c1.y * c2.w - c1.w * c2.y) + c0.w * (c1.z * c2.y - c1.y * c2.z);
 
-    inv.v2.x = v2.x * (v3.w * v4.z - v3.z * v4.w) + v2.z * (v3.x * v4.w - v3.w * v4.x) + v2.w * (v3.z * v4.x - v3.x * v4.z);
-    inv.v2.y = v1.x * (v3.z * v4.w - v3.w * v4.z) + v1.z * (v3.w * v4.x - v3.x * v4.w) + v1.w * (v3.x * v4.z - v3.z * v4.x);
-    inv.v2.z = v1.x * (v2.w * v4.z - v2.z * v4.w) + v1.z * (v2.x * v4.w - v2.w * v4.x) + v1.w * (v2.z * v4.x - v2.x * v4.z);
-    inv.v2.w = v1.x * (v2.z * v3.w - v2.w * v3.z) + v1.z * (v2.w * v3.x - v2.x * v3.w) + v1.w * (v2.x * v3.z - v2.z * v3.x);
+    inv.c1.x = c1.x * (c2.w * c3.z - c2.z * c3.w) + c1.z * (c2.x * c3.w - c2.w * c3.x) + c1.w * (c2.z * c3.x - c2.x * c3.z);
+    inv.c1.y = c0.x * (c2.z * c3.w - c2.w * c3.z) + c0.z * (c2.w * c3.x - c2.x * c3.w) + c0.w * (c2.x * c3.z - c2.z * c3.x);
+    inv.c1.z = c0.x * (c1.w * c3.z - c1.z * c3.w) + c0.z * (c1.x * c3.w - c1.w * c3.x) + c0.w * (c1.z * c3.x - c1.x * c3.z);
+    inv.c1.w = c0.x * (c1.z * c2.w - c1.w * c2.z) + c0.z * (c1.w * c2.x - c1.x * c2.w) + c0.w * (c1.x * c2.z - c1.z * c2.x);
 
-    inv.v3.x = v2.x * (v3.y * v4.w - v3.w * v4.y) + v2.y * (v3.w * v4.x - v3.x * v4.w) + v2.w * (v3.x * v4.y - v3.y * v4.x);
-    inv.v3.y = v1.x * (v3.w * v4.y - v3.y * v4.w) + v1.y * (v3.x * v4.w - v3.w * v4.x) + v1.w * (v3.y * v4.x - v3.x * v4.y);
-    inv.v3.z = v1.x * (v2.y * v4.w - v2.w * v4.y) + v1.y * (v2.w * v4.x - v2.x * v4.w) + v1.w * (v2.x * v4.y - v2.y * v4.x);
-    inv.v3.w = v1.x * (v2.w * v3.y - v2.y * v3.w) + v1.y * (v2.x * v3.w - v2.w * v3.x) + v1.w * (v2.y * v3.x - v2.x * v3.y);
+    inv.c2.x = c1.x * (c2.y * c3.w - c2.w * c3.y) + c1.y * (c2.w * c3.x - c2.x * c3.w) + c1.w * (c2.x * c3.y - c2.y * c3.x);
+    inv.c2.y = c0.x * (c2.w * c3.y - c2.y * c3.w) + c0.y * (c2.x * c3.w - c2.w * c3.x) + c0.w * (c2.y * c3.x - c2.x * c3.y);
+    inv.c2.z = c0.x * (c1.y * c3.w - c1.w * c3.y) + c0.y * (c1.w * c3.x - c1.x * c3.w) + c0.w * (c1.x * c3.y - c1.y * c3.x);
+    inv.c2.w = c0.x * (c1.w * c2.y - c1.y * c2.w) + c0.y * (c1.x * c2.w - c1.w * c2.x) + c0.w * (c1.y * c2.x - c1.x * c2.y);
 
-    inv.v4.x = v2.x * (v3.z * v4.y - v3.y * v4.z) + v2.y * (v3.x * v4.z - v3.z * v4.x) + v2.z * (v3.y * v4.x - v3.x * v4.y);
-    inv.v4.y = v1.x * (v3.y * v4.z - v3.z * v4.y) + v1.y * (v3.z * v4.x - v3.x * v4.z) + v1.z * (v3.x * v4.y - v3.y * v4.x);
-    inv.v4.z = v1.x * (v2.z * v4.y - v2.y * v4.z) + v1.y * (v2.x * v4.z - v2.z * v4.x) + v1.z * (v2.y * v4.x - v2.x * v4.y);
-    inv.v4.w = v1.x * (v2.y * v3.z - v2.z * v3.y) + v1.y * (v2.z * v3.x - v2.x * v3.z) + v1.z * (v2.x * v3.y - v2.y * v3.x);
+    inv.c3.x = c1.x * (c2.z * c3.y - c2.y * c3.z) + c1.y * (c2.x * c3.z - c2.z * c3.x) + c1.z * (c2.y * c3.x - c2.x * c3.y);
+    inv.c3.y = c0.x * (c2.y * c3.z - c2.z * c3.y) + c0.y * (c2.z * c3.x - c2.x * c3.z) + c0.z * (c2.x * c3.y - c2.y * c3.x);
+    inv.c3.z = c0.x * (c1.z * c3.y - c1.y * c3.z) + c0.y * (c1.x * c3.z - c1.z * c3.x) + c0.z * (c1.y * c3.x - c1.x * c3.y);
+    inv.c3.w = c0.x * (c1.y * c2.z - c1.z * c2.y) + c0.y * (c1.z * c2.x - c1.x * c2.z) + c0.z * (c1.x * c2.y - c1.y * c2.x);
 
-    float det = v1.x * inv.v1.x + v1.y * inv.v2.x + v1.z * inv.v3.x + v1.w * inv.v4.x;
+    float det = c0.x * inv.c0.x + c0.y * inv.c1.x + c0.z * inv.c2.x + c0.w * inv.c3.x;
 
     return inv / det;
 }
 
 inline float float4x4::det() const {
-    return v1.x * (v2.y * (v3.z * v4.w - v3.w * v4.z) - v2.z * (v3.y * v4.w - v3.w * v4.y) + v2.w * (v3.y * v4.z - v3.z * v4.y))
-        - v1.y * (v2.x * (v3.z * v4.w - v3.w * v4.z) - v2.z * (v3.x * v4.w - v3.w * v4.x) + v2.w * (v3.x * v4.z - v3.z * v4.x))
-        + v1.z * (v2.x * (v3.y * v4.w - v3.w * v4.y) - v2.y * (v3.x * v4.w - v3.w * v4.x) + v2.w * (v3.x * v4.y - v3.y * v4.x))
-        - v1.w * (v2.x * (v3.y * v4.z - v3.z * v4.y) - v2.y * (v3.x * v4.z - v3.z * v4.x) + v2.z * (v3.x * v4.y - v3.y * v4.x));
+    return c0.x * (c1.y * (c2.z * c3.w - c2.w * c3.z) - c1.z * (c2.y * c3.w - c2.w * c3.y) + c1.w * (c2.y * c3.z - c2.z * c3.y))
+        - c0.y * (c1.x * (c2.z * c3.w - c2.w * c3.z) - c1.z * (c2.x * c3.w - c2.w * c3.x) + c1.w * (c2.x * c3.z - c2.z * c3.x))
+        + c0.z * (c1.x * (c2.y * c3.w - c2.w * c3.y) - c1.y * (c2.x * c3.w - c2.w * c3.x) + c1.w * (c2.x * c3.y - c2.y * c3.x))
+        - c0.w * (c1.x * (c2.y * c3.z - c2.z * c3.y) - c1.y * (c2.x * c3.z - c2.z * c3.x) + c1.z * (c2.x * c3.y - c2.y * c3.x));
 }
 
 inline float4x4 float4x4::operator-() const {
-    return float4x4(-v1, -v2, -v3, -v4);
+    return float4x4(-c0, -c1, -c2, -c3);
 }
 
 inline float4x4 float4x4::operator+(float scalar) const {
-    return float4x4(v1 + scalar, v2 + scalar, v3 + scalar, v4 + scalar);
+    return float4x4(c0 + scalar, c1 + scalar, c2 + scalar, c3 + scalar);
 }
 
 inline float4x4 float4x4::operator-(float scalar) const {
-    return float4x4(v1 - scalar, v2 - scalar, v3 - scalar, v4 - scalar);
+    return float4x4(c0 - scalar, c1 - scalar, c2 - scalar, c3 - scalar);
 }
 
 inline float4x4 float4x4::operator*(float scalar) const {
-    return float4x4(v1 * scalar, v2 * scalar, v3 * scalar, v4 * scalar);
+    return float4x4(c0 * scalar, c1 * scalar, c2 * scalar, c3 * scalar);
 }
 
 inline float4x4 float4x4::operator/(float scalar) const {
@@ -158,46 +158,46 @@ inline float4x4 float4x4::operator/(float scalar) const {
 
 inline float4 float4x4::operator*(const float4& vector) const {
     return float4(
-        v1.x * vector.x + v2.x * vector.y + v3.x * vector.z + v4.x * vector.w,
-        v1.y * vector.x + v2.y * vector.y + v3.y * vector.z + v4.y * vector.w,
-        v1.z * vector.x + v2.z * vector.y + v3.z * vector.z + v4.z * vector.w,
-        v1.w * vector.x + v2.w * vector.y + v3.w * vector.z + v4.w * vector.w
+        c0.x * vector.x + c1.x * vector.y + c2.x * vector.z + c3.x * vector.w,
+        c0.y * vector.x + c1.y * vector.y + c2.y * vector.z + c3.y * vector.w,
+        c0.z * vector.x + c1.z * vector.y + c2.z * vector.z + c3.z * vector.w,
+        c0.w * vector.x + c1.w * vector.y + c2.w * vector.z + c3.w * vector.w
     );
 }
 
 inline float4x4 float4x4::operator+(const float4x4& other) const {
-    return float4x4(v1 + other.v1, v2 + other.v2, v3 + other.v3, v4 + other.v4);
+    return float4x4(c0 + other.c0, c1 + other.c1, c2 + other.c2, c3 + other.c3);
 }
 
 inline float4x4 float4x4::operator-(const float4x4& other) const {
-    return float4x4(v1 - other.v1, v2 - other.v2, v3 - other.v3, v4 - other.v4);
+    return float4x4(c0 - other.c0, c1 - other.c1, c2 - other.c2, c3 - other.c3);
 }
 
 inline float4x4 float4x4::operator*(const float4x4& other) const {
     return float4x4(
         float4(
-            v1.x * other.v1.x + v2.x * other.v1.y + v3.x * other.v1.z + v4.x * other.v1.w,
-            v1.y * other.v1.x + v2.y * other.v1.y + v3.y * other.v1.z + v4.y * other.v1.w,
-            v1.z * other.v1.x + v2.z * other.v1.y + v3.z * other.v1.z + v4.z * other.v1.w,
-            v1.w * other.v1.x + v2.w * other.v1.y + v3.w * other.v1.z + v4.w * other.v1.w
+            c0.x * other.c0.x + c1.x * other.c0.y + c2.x * other.c0.z + c3.x * other.c0.w,
+            c0.y * other.c0.x + c1.y * other.c0.y + c2.y * other.c0.z + c3.y * other.c0.w,
+            c0.z * other.c0.x + c1.z * other.c0.y + c2.z * other.c0.z + c3.z * other.c0.w,
+            c0.w * other.c0.x + c1.w * other.c0.y + c2.w * other.c0.z + c3.w * other.c0.w
         ),
         float4(
-            v1.x * other.v2.x + v2.x * other.v2.y + v3.x * other.v2.z + v4.x * other.v2.w,
-            v1.y * other.v2.x + v2.y * other.v2.y + v3.y * other.v2.z + v4.y * other.v2.w,
-            v1.z * other.v2.x + v2.z * other.v2.y + v3.z * other.v2.z + v4.z * other.v2.w,
-            v1.w * other.v2.x + v2.w * other.v2.y + v3.w * other.v2.z + v4.w * other.v2.w
+            c0.x * other.c1.x + c1.x * other.c1.y + c2.x * other.c1.z + c3.x * other.c1.w,
+            c0.y * other.c1.x + c1.y * other.c1.y + c2.y * other.c1.z + c3.y * other.c1.w,
+            c0.z * other.c1.x + c1.z * other.c1.y + c2.z * other.c1.z + c3.z * other.c1.w,
+            c0.w * other.c1.x + c1.w * other.c1.y + c2.w * other.c1.z + c3.w * other.c1.w
         ),
         float4(
-            v1.x * other.v3.x + v2.x * other.v3.y + v3.x * other.v3.z + v4.x * other.v3.w,
-            v1.y * other.v3.x + v2.y * other.v3.y + v3.y * other.v3.z + v4.y * other.v3.w,
-            v1.z * other.v3.x + v2.z * other.v3.y + v3.z * other.v3.z + v4.z * other.v3.w,
-            v1.w * other.v3.x + v2.w * other.v3.y + v3.w * other.v3.z + v4.w * other.v3.w
+            c0.x * other.c2.x + c1.x * other.c2.y + c2.x * other.c2.z + c3.x * other.c2.w,
+            c0.y * other.c2.x + c1.y * other.c2.y + c2.y * other.c2.z + c3.y * other.c2.w,
+            c0.z * other.c2.x + c1.z * other.c2.y + c2.z * other.c2.z + c3.z * other.c2.w,
+            c0.w * other.c2.x + c1.w * other.c2.y + c2.w * other.c2.z + c3.w * other.c2.w
         ),
         float4(
-            v1.x * other.v4.x + v2.x * other.v4.y + v3.x * other.v4.z + v4.x * other.v4.w,
-            v1.y * other.v4.x + v2.y * other.v4.y + v3.y * other.v4.z + v4.y * other.v4.w,
-            v1.z * other.v4.x + v2.z * other.v4.y + v3.z * other.v4.z + v4.z * other.v4.w,
-            v1.w * other.v4.x + v2.w * other.v4.y + v3.w * other.v4.z + v4.w * other.v4.w
+            c0.x * other.c3.x + c1.x * other.c3.y + c2.x * other.c3.z + c3.x * other.c3.w,
+            c0.y * other.c3.x + c1.y * other.c3.y + c2.y * other.c3.z + c3.y * other.c3.w,
+            c0.z * other.c3.x + c1.z * other.c3.y + c2.z * other.c3.z + c3.z * other.c3.w,
+            c0.w * other.c3.x + c1.w * other.c3.y + c2.w * other.c3.z + c3.w * other.c3.w
         )
     );
 }

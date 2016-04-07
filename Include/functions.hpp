@@ -37,15 +37,15 @@ inline float4 lerp(const float4& lhs, const float4& rhs, float t) {
 }
 
 inline float2x2 lerp(const float2x2& lhs, const float2x2& rhs, float t) {
-    return float2x2(lerp(lhs.v1, rhs.v1, t), lerp(lhs.v2, rhs.v2, t));
+    return float2x2(lerp(lhs.c0, rhs.c0, t), lerp(lhs.c1, rhs.c1, t));
 }
 
 inline float3x3 lerp(const float3x3& lhs, const float3x3& rhs, float t) {
-    return float3x3(lerp(lhs.v1, rhs.v1, t), lerp(lhs.v2, rhs.v2, t), lerp(lhs.v3, rhs.v3, t));
+    return float3x3(lerp(lhs.c0, rhs.c0, t), lerp(lhs.c1, rhs.c1, t), lerp(lhs.c2, rhs.c2, t));
 }
 
 inline float4x4 lerp(const float4x4& lhs, const float4x4& rhs, float t) {
-    return float4x4(lerp(lhs.v1, rhs.v1, t), lerp(lhs.v2, rhs.v2, t), lerp(lhs.v3, rhs.v3, t), lerp(lhs.v4, rhs.v4, t));
+    return float4x4(lerp(lhs.c0, rhs.c0, t), lerp(lhs.c1, rhs.c1, t), lerp(lhs.c2, rhs.c2, t), lerp(lhs.c3, rhs.c3, t));
 }
 
 }
