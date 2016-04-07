@@ -230,6 +230,14 @@ inline float4x4& float4x4::operator*=(const float4x4& other) {
     return *this = *this * other;
 }
 
+inline float4& float4x4::operator[](int index) {
+    return columns[index];
+}
+
+inline const float4& float4x4::operator[](int index) const {
+    return columns[index];
+}
+
 }
 
 #endif

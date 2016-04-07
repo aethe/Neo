@@ -112,6 +112,14 @@ inline float2& float2::operator/=(const float2& other) {
     return *this = *this / other;
 }
 
+inline float& float2::operator[](int index) {
+    return scalars[index];
+}
+
+inline float float2::operator[](int index) const {
+    return scalars[index];
+}
+
 }
 
 #endif

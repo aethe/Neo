@@ -129,6 +129,14 @@ inline float3x3& float3x3::operator*=(const float3x3& other) {
     return *this = *this * other;
 }
 
+inline float3& float3x3::operator[](int index) {
+    return columns[index];
+}
+
+inline const float3& float3x3::operator[](int index) const {
+    return columns[index];
+}
+
 }
 
 #endif
