@@ -15,7 +15,6 @@ struct float4;
 struct float2x2;
 struct float3x3;
 struct float4x4;
-struct angle;
 
 struct float2 {
 
@@ -246,10 +245,10 @@ struct float4x4 {
 
     static float4x4 scale(const float3& vector);
     static float4x4 translation(const float3& vector);
-    static float4x4 rotation(const float3& vector, const angle& alpha);
-    static float4x4 rotation_x(const angle& alpha);
-    static float4x4 rotation_y(const angle& alpha);
-    static float4x4 rotation_z(const angle& alpha);
+    static float4x4 rotation(const float3& vector, float angle);
+    static float4x4 rotation_x(float angle);
+    static float4x4 rotation_y(float angle);
+    static float4x4 rotation_z(float angle);
     static float4x4 look_at(const float3& origin, const float3& target, const float3& up);
 
     float2x2 as_float2x2() const;
@@ -286,25 +285,6 @@ struct float4x4 {
 
 };
 
-struct angle {
-
-    static angle radians(float radians);
-    static angle degrees(float degrees);
-
-    float as_radians() const;
-    float as_degrees() const;
-
-    float cos() const;
-    float sin() const;
-
-private:
-    float radians_;
-
-    angle(): radians_(0.0f) { }
-    angle(float radians): radians_(radians) { }
-
-};
-
 float dot(const float2& lhs, const float2& rhs);
 float dot(const float3& lhs, const float3& rhs);
 float dot(const float4& lhs, const float4& rhs);
@@ -328,5 +308,4 @@ float4x4 lerp(const float4x4& lhs, const float4x4& rhs, float t);
 #include "float2x2.hpp"
 #include "float3x3.hpp"
 #include "float4x4.hpp"
-#include "angle.hpp"
 #include "functions.hpp"
