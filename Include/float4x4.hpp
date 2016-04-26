@@ -23,49 +23,49 @@ inline float4x4 float4x4::translation(const float3& vector) {
     );
 }
 
-inline float4x4 float4x4::rotation(const float3& vector, const angle& alpha) {
-    float cos = alpha.cos();
-    float sin = alpha.sin();
+inline float4x4 float4x4::rotation(const float3& vector, float angle) {
+    float c = std::cos(angle);
+    float s = std::sin(angle);
 
     return float4x4(
-        float4(cos + (1 - cos) * vector.x * vector.x, (1 - cos) * vector.x * vector.y + sin * vector.z, (1 - cos) * vector.x * vector.z - sin * vector.y, 0.0f),
-        float4((1 - cos) * vector.x * vector.y - sin * vector.z, cos + (1 - cos) * vector.y * vector.y, (1 - cos) * vector.y * vector.z + sin * vector.x, 0.0f),
-        float4((1 - cos) * vector.x * vector.z + sin * vector.y, (1 - cos) * vector.y * vector.z + sin * vector.x, cos + (1 - cos) * vector.z * vector.z, 0.0f),
+        float4(c + (1 - c) * vector.x * vector.x, (1 - c) * vector.x * vector.y + s * vector.z, (1 - c) * vector.x * vector.z - s * vector.y, 0.0f),
+        float4((1 - c) * vector.x * vector.y - s * vector.z, c + (1 - c) * vector.y * vector.y, (1 - c) * vector.y * vector.z + s * vector.x, 0.0f),
+        float4((1 - c) * vector.x * vector.z + s * vector.y, (1 - c) * vector.y * vector.z + s * vector.x, c + (1 - c) * vector.z * vector.z, 0.0f),
         float4(0.0f, 0.0f, 0.0f, 1.0f)
     );
 }
 
-inline float4x4 float4x4::rotation_x(const angle& alpha) {
-    float cos = alpha.cos();
-    float sin = alpha.sin();
+inline float4x4 float4x4::rotation_x(float angle) {
+    float c = std::cos(angle);
+    float s = std::sin(angle);
 
     return float4x4(
         float4(1.0f, 0.0f, 0.0f, 0.0f),
-        float4(0.0f, cos, -sin, 0.0f),
-        float4(0.0f, sin, cos, 0.0f),
+        float4(0.0f, c, -s, 0.0f),
+        float4(0.0f, s, c, 0.0f),
         float4(0.0f, 0.0f, 0.0f, 1.0f)
     );
 }
 
-inline float4x4 float4x4::rotation_y(const angle& alpha) {
-    float cos = alpha.cos();
-    float sin = alpha.sin();
+inline float4x4 float4x4::rotation_y(float angle) {
+    float c = std::cos(angle);
+    float s = std::sin(angle);
 
     return float4x4(
-        float4(cos, 0.0f, sin, 0.0f),
+        float4(c, 0.0f, s, 0.0f),
         float4(0.0f, 1.0f, 0.0f, 0.0f),
-        float4(-sin, 0.0f, cos, 0.0f),
+        float4(-s, 0.0f, c, 0.0f),
         float4(0.0f, 0.0f, 0.0f, 1.0f)
     );
 }
 
-inline float4x4 float4x4::rotation_z(const angle& alpha) {
-    float cos = alpha.cos();
-    float sin = alpha.sin();
+inline float4x4 float4x4::rotation_z(float angle) {
+    float c = std::cos(angle);
+    float s = std::sin(angle);
 
     return float4x4(
-        float4(cos, -sin, 0.0f, 0.0f),
-        float4(sin, cos, 0.0f, 0.0f),
+        float4(c, -s, 0.0f, 0.0f),
+        float4(s, c, 0.0f, 0.0f),
         float4(0.0f, 0.0f, 1.0f, 0.0f),
         float4(0.0f, 0.0f, 0.0f, 1.0f)
     );
