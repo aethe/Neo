@@ -21,6 +21,7 @@ struct float2 {
     union { struct { float x, y; }; float scalars[2]; };
 
     float2(): x(0.0f), y(0.0f) { }
+    float2(float scalar): x(scalar), y(scalar) { }
     float2(float x, float y): x(x), y(y) { }
 
     float3 as_float3(float z = 0.0f) const;
@@ -65,6 +66,7 @@ struct float3 {
     union { struct { float x, y, z; }; float scalars[3]; };
 
     float3(): x(0.0f), y(0.0f), z(0.0f) { }
+    float3(float scalar): x(scalar), y(scalar), z(scalar) { }
     float3(float x, float y, float z): x(x), y(y), z(z) { }
 
     float2 as_float2() const;
@@ -109,6 +111,7 @@ struct float4 {
     union { struct { float x, y, z, w; }; float scalars[4]; };
 
     float4(): x(0.0f), y(0.0f), z(0.0f), w(0.0f) { }
+    float4(float scalar): x(scalar), y(scalar), z(scalar), w(scalar) { }
     float4(float x, float y, float z, float w): x(x), y(y), z(z), w(w) { }
 
     float2 as_float2() const;

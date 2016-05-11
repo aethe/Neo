@@ -10,6 +10,10 @@ void print(const float3& vector) {
     printf("[%f, %f, %f]\n", vector.x, vector.y, vector.z);
 }
 
+void print(const float4& vector) {
+    printf("[%f, %f, %f, %f]\n", vector.x, vector.y, vector.z, vector.w);
+}
+
 void print(const float4x4& matrix) {
     printf("[%f, %f, %f, %f]\n", matrix.c0.x, matrix.c1.x, matrix.c2.x, matrix.c3.x);
     printf("[%f, %f, %f, %f]\n", matrix.c0.y, matrix.c1.y, matrix.c2.y, matrix.c3.y);
