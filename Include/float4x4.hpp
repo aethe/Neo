@@ -5,7 +5,7 @@
 
 namespace neo {
 
-inline float4x4 float4x4::scale(const float3& vector) {
+NEO_FUNC_DEF float4x4 float4x4::scale(const float3& vector) {
     return float4x4(
         float4(vector.x, 0.0f, 0.0f, 0.0f),
         float4(0.0f, vector.y, 0.0f, 0.0f),
@@ -14,7 +14,7 @@ inline float4x4 float4x4::scale(const float3& vector) {
     );
 }
 
-inline float4x4 float4x4::translation(const float3& vector) {
+NEO_FUNC_DEF float4x4 float4x4::translation(const float3& vector) {
     return float4x4(
         float4(1.0f, 0.0f, 0.0f, 0.0f),
         float4(0.0f, 1.0f, 0.0f, 0.0f),
@@ -23,7 +23,7 @@ inline float4x4 float4x4::translation(const float3& vector) {
     );
 }
 
-inline float4x4 float4x4::rotation(const float3& vector, float angle) {
+NEO_FUNC_DEF float4x4 float4x4::rotation(const float3& vector, float angle) {
     float c = std::cos(angle);
     float s = std::sin(angle);
 
@@ -35,7 +35,7 @@ inline float4x4 float4x4::rotation(const float3& vector, float angle) {
     );
 }
 
-inline float4x4 float4x4::rotation_x(float angle) {
+NEO_FUNC_DEF float4x4 float4x4::rotation_x(float angle) {
     float c = std::cos(angle);
     float s = std::sin(angle);
 
@@ -47,7 +47,7 @@ inline float4x4 float4x4::rotation_x(float angle) {
     );
 }
 
-inline float4x4 float4x4::rotation_y(float angle) {
+NEO_FUNC_DEF float4x4 float4x4::rotation_y(float angle) {
     float c = std::cos(angle);
     float s = std::sin(angle);
 
@@ -59,7 +59,7 @@ inline float4x4 float4x4::rotation_y(float angle) {
     );
 }
 
-inline float4x4 float4x4::rotation_z(float angle) {
+NEO_FUNC_DEF float4x4 float4x4::rotation_z(float angle) {
     float c = std::cos(angle);
     float s = std::sin(angle);
 
@@ -71,7 +71,7 @@ inline float4x4 float4x4::rotation_z(float angle) {
     );
 }
 
-inline float4x4 float4x4::look_at(const float3& origin, const float3& target, const float3& up) {
+NEO_FUNC_DEF float4x4 float4x4::look_at(const float3& origin, const float3& target, const float3& up) {
     float3 z_axis = (origin - target).normalize();
     float3 x_axis = cross(up, z_axis).normalize();
     float3 y_axis = cross(z_axis, x_axis);
@@ -84,15 +84,15 @@ inline float4x4 float4x4::look_at(const float3& origin, const float3& target, co
     );
 }
 
-inline float2x2 float4x4::as_float2x2() const {
+NEO_FUNC_DEF float2x2 float4x4::as_float2x2() const {
     return float2x2(c0.as_float2(), c1.as_float2());
 }
 
-inline float3x3 float4x4::as_float3x3() const {
+NEO_FUNC_DEF float3x3 float4x4::as_float3x3() const {
     return float3x3(c0.as_float3(), c1.as_float3(), c2.as_float3());
 }
 
-inline float4x4 float4x4::transpose() const {
+NEO_FUNC_DEF float4x4 float4x4::transpose() const {
     return float4x4(
         float4(c0.x, c1.x, c2.x, c3.x),
         float4(c0.y, c1.y, c2.y, c3.y),
@@ -101,7 +101,7 @@ inline float4x4 float4x4::transpose() const {
     );
 }
 
-inline float4x4 float4x4::inverse() const {
+NEO_FUNC_DEF float4x4 float4x4::inverse() const {
     float4x4 inv;
 
     inv.c0.x = c1.y * (c2.z * c3.w - c2.w * c3.z) + c1.z * (c2.w * c3.y - c2.y * c3.w) + c1.w * (c2.y * c3.z - c2.z * c3.y);
@@ -129,34 +129,34 @@ inline float4x4 float4x4::inverse() const {
     return inv / det;
 }
 
-inline float float4x4::det() const {
+NEO_FUNC_DEF float float4x4::det() const {
     return c0.x * (c1.y * (c2.z * c3.w - c2.w * c3.z) - c1.z * (c2.y * c3.w - c2.w * c3.y) + c1.w * (c2.y * c3.z - c2.z * c3.y))
         - c0.y * (c1.x * (c2.z * c3.w - c2.w * c3.z) - c1.z * (c2.x * c3.w - c2.w * c3.x) + c1.w * (c2.x * c3.z - c2.z * c3.x))
         + c0.z * (c1.x * (c2.y * c3.w - c2.w * c3.y) - c1.y * (c2.x * c3.w - c2.w * c3.x) + c1.w * (c2.x * c3.y - c2.y * c3.x))
         - c0.w * (c1.x * (c2.y * c3.z - c2.z * c3.y) - c1.y * (c2.x * c3.z - c2.z * c3.x) + c1.z * (c2.x * c3.y - c2.y * c3.x));
 }
 
-inline float4x4 float4x4::operator-() const {
+NEO_FUNC_DEF float4x4 float4x4::operator-() const {
     return float4x4(-c0, -c1, -c2, -c3);
 }
 
-inline float4x4 float4x4::operator+(float scalar) const {
+NEO_FUNC_DEF float4x4 float4x4::operator+(float scalar) const {
     return float4x4(c0 + scalar, c1 + scalar, c2 + scalar, c3 + scalar);
 }
 
-inline float4x4 float4x4::operator-(float scalar) const {
+NEO_FUNC_DEF float4x4 float4x4::operator-(float scalar) const {
     return float4x4(c0 - scalar, c1 - scalar, c2 - scalar, c3 - scalar);
 }
 
-inline float4x4 float4x4::operator*(float scalar) const {
+NEO_FUNC_DEF float4x4 float4x4::operator*(float scalar) const {
     return float4x4(c0 * scalar, c1 * scalar, c2 * scalar, c3 * scalar);
 }
 
-inline float4x4 float4x4::operator/(float scalar) const {
+NEO_FUNC_DEF float4x4 float4x4::operator/(float scalar) const {
     return (*this) * (1.0f / scalar);
 }
 
-inline float4 float4x4::operator*(const float4& vector) const {
+NEO_FUNC_DEF float4 float4x4::operator*(const float4& vector) const {
     return float4(
         c0.x * vector.x + c1.x * vector.y + c2.x * vector.z + c3.x * vector.w,
         c0.y * vector.x + c1.y * vector.y + c2.y * vector.z + c3.y * vector.w,
@@ -165,15 +165,15 @@ inline float4 float4x4::operator*(const float4& vector) const {
     );
 }
 
-inline float4x4 float4x4::operator+(const float4x4& other) const {
+NEO_FUNC_DEF float4x4 float4x4::operator+(const float4x4& other) const {
     return float4x4(c0 + other.c0, c1 + other.c1, c2 + other.c2, c3 + other.c3);
 }
 
-inline float4x4 float4x4::operator-(const float4x4& other) const {
+NEO_FUNC_DEF float4x4 float4x4::operator-(const float4x4& other) const {
     return float4x4(c0 - other.c0, c1 - other.c1, c2 - other.c2, c3 - other.c3);
 }
 
-inline float4x4 float4x4::operator*(const float4x4& other) const {
+NEO_FUNC_DEF float4x4 float4x4::operator*(const float4x4& other) const {
     return float4x4(
         float4(
             c0.x * other.c0.x + c1.x * other.c0.y + c2.x * other.c0.z + c3.x * other.c0.w,
@@ -202,39 +202,39 @@ inline float4x4 float4x4::operator*(const float4x4& other) const {
     );
 }
 
-inline float4x4& float4x4::operator+=(float scalar) {
+NEO_FUNC_DEF float4x4& float4x4::operator+=(float scalar) {
     return *this = *this + scalar;
 }
 
-inline float4x4& float4x4::operator-=(float scalar) {
+NEO_FUNC_DEF float4x4& float4x4::operator-=(float scalar) {
     return *this = *this - scalar;
 }
 
-inline float4x4& float4x4::operator*=(float scalar) {
+NEO_FUNC_DEF float4x4& float4x4::operator*=(float scalar) {
     return *this = *this * scalar;
 }
 
-inline float4x4& float4x4::operator/=(float scalar) {
+NEO_FUNC_DEF float4x4& float4x4::operator/=(float scalar) {
     return *this = *this / scalar;
 }
 
-inline float4x4& float4x4::operator+=(const float4x4& other) {
+NEO_FUNC_DEF float4x4& float4x4::operator+=(const float4x4& other) {
     return *this = *this + other;
 }
 
-inline float4x4& float4x4::operator-=(const float4x4& other) {
+NEO_FUNC_DEF float4x4& float4x4::operator-=(const float4x4& other) {
     return *this = *this - other;
 }
 
-inline float4x4& float4x4::operator*=(const float4x4& other) {
+NEO_FUNC_DEF float4x4& float4x4::operator*=(const float4x4& other) {
     return *this = *this * other;
 }
 
-inline float4& float4x4::operator[](int index) {
+NEO_FUNC_DEF float4& float4x4::operator[](int index) {
     return columns[index];
 }
 
-inline const float4& float4x4::operator[](int index) const {
+NEO_FUNC_DEF const float4& float4x4::operator[](int index) const {
     return columns[index];
 }
 

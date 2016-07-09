@@ -5,15 +5,15 @@
 
 namespace neo {
 
-inline float2x2 float3x3::as_float2x2() const {
+NEO_FUNC_DEF float2x2 float3x3::as_float2x2() const {
     return float2x2(c0.as_float2(), c1.as_float2());
 }
 
-inline float4x4 float3x3::as_float4x4() const {
+NEO_FUNC_DEF float4x4 float3x3::as_float4x4() const {
     return float4x4(c0.as_float4(), c1.as_float4(), c2.as_float4(), float4(0.0f, 0.0f, 0.0f, 1.0f));
 }
 
-inline float3x3 float3x3::transpose() const {
+NEO_FUNC_DEF float3x3 float3x3::transpose() const {
     return float3x3(
         float3(c0.x, c1.x, c2.x),
         float3(c0.y, c1.y, c2.y),
@@ -21,7 +21,7 @@ inline float3x3 float3x3::transpose() const {
     );
 }
 
-inline float3x3 float3x3::inverse() const {
+NEO_FUNC_DEF float3x3 float3x3::inverse() const {
     float3x3 inv;
 
     inv.c0.x = c1.y * c2.z - c1.z * c2.y;
@@ -41,31 +41,31 @@ inline float3x3 float3x3::inverse() const {
     return inv / det;
 }
 
-inline float float3x3::det() const {
+NEO_FUNC_DEF float float3x3::det() const {
     return c0.x * (c1.y * c2.z - c1.z * c2.y) + c0.y * (c1.z * c2.x - c1.x * c2.z) + c0.z * (c1.x * c2.y - c1.y * c2.x);
 }
 
-inline float3x3 float3x3::operator-() const {
+NEO_FUNC_DEF float3x3 float3x3::operator-() const {
     return float3x3(-c0, -c1, -c2);
 }
 
-inline float3x3 float3x3::operator+(float scalar) const {
+NEO_FUNC_DEF float3x3 float3x3::operator+(float scalar) const {
     return float3x3(c0 + scalar, c1 + scalar, c2 + scalar);
 }
 
-inline float3x3 float3x3::operator-(float scalar) const {
+NEO_FUNC_DEF float3x3 float3x3::operator-(float scalar) const {
     return float3x3(c0 - scalar, c1 - scalar, c2 - scalar);
 }
 
-inline float3x3 float3x3::operator*(float scalar) const {
+NEO_FUNC_DEF float3x3 float3x3::operator*(float scalar) const {
     return float3x3(c0 * scalar, c1 * scalar, c2 * scalar);
 }
 
-inline float3x3 float3x3::operator/(float scalar) const {
+NEO_FUNC_DEF float3x3 float3x3::operator/(float scalar) const {
     return (*this) * (1.0f / scalar);
 }
 
-inline float3 float3x3::operator*(const float3& vector) const {
+NEO_FUNC_DEF float3 float3x3::operator*(const float3& vector) const {
     return float3(
         c0.x * vector.x + c1.x * vector.y + c2.x * vector.z,
         c0.y * vector.x + c1.y * vector.y + c2.y * vector.z,
@@ -73,15 +73,15 @@ inline float3 float3x3::operator*(const float3& vector) const {
     );
 }
 
-inline float3x3 float3x3::operator+(const float3x3& other) const {
+NEO_FUNC_DEF float3x3 float3x3::operator+(const float3x3& other) const {
     return float3x3(c0 + other.c0, c1 + other.c1, c2 + other.c2);
 }
 
-inline float3x3 float3x3::operator-(const float3x3& other) const {
+NEO_FUNC_DEF float3x3 float3x3::operator-(const float3x3& other) const {
     return float3x3(c0 - other.c0, c1 - other.c1, c2 - other.c2);
 }
 
-inline float3x3 float3x3::operator*(const float3x3& other) const {
+NEO_FUNC_DEF float3x3 float3x3::operator*(const float3x3& other) const {
     return float3x3(
         float3(
             c0.x * other.c0.x + c1.x * other.c0.y + c2.x * other.c0.z,
@@ -101,39 +101,39 @@ inline float3x3 float3x3::operator*(const float3x3& other) const {
     );
 }
 
-inline float3x3& float3x3::operator+=(float scalar) {
+NEO_FUNC_DEF float3x3& float3x3::operator+=(float scalar) {
     return *this = *this + scalar;
 }
 
-inline float3x3& float3x3::operator-=(float scalar) {
+NEO_FUNC_DEF float3x3& float3x3::operator-=(float scalar) {
     return *this = *this - scalar;
 }
 
-inline float3x3& float3x3::operator*=(float scalar) {
+NEO_FUNC_DEF float3x3& float3x3::operator*=(float scalar) {
     return *this = *this * scalar;
 }
 
-inline float3x3& float3x3::operator/=(float scalar) {
+NEO_FUNC_DEF float3x3& float3x3::operator/=(float scalar) {
     return *this = *this / scalar;
 }
 
-inline float3x3& float3x3::operator+=(const float3x3& other) {
+NEO_FUNC_DEF float3x3& float3x3::operator+=(const float3x3& other) {
     return *this = *this + other;
 }
 
-inline float3x3& float3x3::operator-=(const float3x3& other) {
+NEO_FUNC_DEF float3x3& float3x3::operator-=(const float3x3& other) {
     return *this = *this - other;
 }
 
-inline float3x3& float3x3::operator*=(const float3x3& other) {
+NEO_FUNC_DEF float3x3& float3x3::operator*=(const float3x3& other) {
     return *this = *this * other;
 }
 
-inline float3& float3x3::operator[](int index) {
+NEO_FUNC_DEF float3& float3x3::operator[](int index) {
     return columns[index];
 }
 
-inline const float3& float3x3::operator[](int index) const {
+NEO_FUNC_DEF const float3& float3x3::operator[](int index) const {
     return columns[index];
 }
 
